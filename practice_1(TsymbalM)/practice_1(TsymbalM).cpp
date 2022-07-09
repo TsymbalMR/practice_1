@@ -13,26 +13,27 @@
 #define SIZE 1024
 #define SIZE_V 10
 
-double a, b, c;
+double a, b, c;//оголошення змінних
 double A, B, C;
 double ma, mb, mc;
 double ha, hb, hc;
 double xA, xB, xC, yA, yB, yC;
 double S, p;
+//оголошення функцій
+void read_param(char*);//функція для запису введених у РЯДОК параметрів
+char* read_value(double*, char*);//функція для зчитування введених у РЯДОК параметрів
+void three_sides();//функція для розрахунку трикутника(введено 3 сторони)
+void output_param();//функція для виведення результату
+void two_sides_and_angle();//функція для розрахунку трикутника(введено 2 сторони та кут)
+bool triangle_exists();//функція для перевірки на коректність введених даних
+void tree_heights();//функція для розрахунку трикутника(введено 3 висоти)
+void three_coordinates();//функція для розрахунку трикутника(введено координати точок)
+void print_menu();//функція для виведення інструкції калькулятора
 
-void read_param(char*);
-char* read_value(double*, char*);
-void three_sides();
-void output_param();
-void two_sides_and_angle();
-bool triangle_exists();
-void tree_heights();
-void print_menu();
+bool flag_trg_or_param = true;//для перевірки на правильність введених даних
+bool error_input = false;//для перевірки на коректність введених даних
 
-bool flag_trg_or_param = true;
-bool error_input = false;
-
-int main()
+int main()//головна функція
 {
 	int key, k = 0;
 	int start;
@@ -92,6 +93,12 @@ int main()
 			output_param();
 			continue;
 		}
+		else if (xA != 0 && xB != 0 && xC != 0 && yA != 0 && yB != 0 && yC != 0)
+		{
+			three_coordinates();
+			output_param();
+			continue;
+		}
 		else
 		{
 			printf("Недостатньо параметрiв!!!\n");
@@ -102,6 +109,11 @@ int main()
 	return 0;
 }
 
+/**
+* Запис параметру
+* @param param_str рядок
+* @return відсутній
+**/
 void read_param(char* param_str)
 {
 	char* reader = param_str;
@@ -204,6 +216,11 @@ void read_param(char* param_str)
 
 }
 
+/**
+* Зчитування параметрів
+* @param reader - рядок
+* @return reader
+**/
 char* read_value(double* boofer, char* reader)
 {
 	bool numeral = false;
@@ -239,7 +256,11 @@ char* read_value(double* boofer, char* reader)
 		return reader;
 	}
 }
-
+/**
+* Розрахунок , коли введено три сторони
+* @param відсутній
+* @return відсутній
+**/
 void three_sides()
 {
 	bool flag = false;
@@ -308,6 +329,11 @@ void three_sides()
 	mc = (double)k * sqrt(2.0 * b * b + 2.0 * a * a - c * c);
 }
 
+/**
+* Розрахунок , коли введено дві сторони та кут
+* @param відсутній
+* @return відсутній
+**/
 void two_sides_and_angle()
 {
 	if (a != 0 && b != 0 && C != 0)
@@ -333,6 +359,11 @@ void two_sides_and_angle()
 
 }
 
+/**
+* Перевірка на коректність даних
+* @param відсутній
+* @return відсутній
+**/
 bool triangle_exists()
 {
 	if (a < 0 || b < 0 || c < 0)
@@ -380,6 +411,12 @@ bool triangle_exists()
 
 	return true;
 }
+
+/**
+* Розрахунок , коли введено три висоти
+* @param відсутній
+* @return відсутній
+**/
 void tree_heights()
 {
 	S = (double)1 / (sqrt((1 / ha + 1 / hb + 1 / hc) * (1 / ha + 1 / hb - 1 / hc) * (1 / ha - 1
@@ -390,8 +427,24 @@ void tree_heights()
 	three_sides();
 }
 
+/**
+* Розрахунок , коли введено координати трьох вершин
+* @param відсутній
+* @return відсутній
+**/
+void three_coordinates()
+{
+	c = sqrt((xB - xA) * (xB - xA) + (yB - yA) * (yB - yA));
+	b = sqrt((xC - xA) * (xC - xA) + (yC - yA) * (yC - yA));
+	a = sqrt((xC - xB) * (xC - xB) + (yC - yB) * (yC - yB));
+	tree_heights();
+}
 
-
+/**
+* Виведення результатів
+* @param відсутній
+* @return відсутній
+**/
 void output_param()
 {
 	printf("Сторона а = %g\n", a);
@@ -420,6 +473,11 @@ void output_param()
 	printf(" Пiвпериметр p = %g\n", p);
 }
 
+/**
+* Виведення інструкції
+* @param відсутній
+* @return відсутній
+**/
 void print_menu()
 {
 	printf("\t\t\tIнструкцiя по використанню калькулятора\n");
