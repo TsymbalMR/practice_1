@@ -26,6 +26,7 @@ void three_sides();
 void output_param();
 void two_sides_and_angle();
 bool triangle_exists();
+void tree_heights();
 void print_menu();
 
 bool flag_trg_or_param = true;
@@ -83,6 +84,12 @@ int main()
 			}
 			output_param();
 
+			continue;
+		}
+		else if (ha != 0 && hb != 0 && hc != 0)
+		{
+			tree_heights();
+			output_param();
 			continue;
 		}
 		else
@@ -373,6 +380,16 @@ bool triangle_exists()
 
 	return true;
 }
+void tree_heights()
+{
+	S = (double)1 / (sqrt((1 / ha + 1 / hb + 1 / hc) * (1 / ha + 1 / hb - 1 / hc) * (1 / ha - 1
+		/ hb + 1 / hc) * (1 / hb + 1 / hc - 1 / ha)));
+	a = 2 * S / ha;
+	b = 2 * S / hb;
+	c = 2 * S / hc;
+	three_sides();
+}
+
 
 
 void output_param()
